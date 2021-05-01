@@ -2,7 +2,7 @@
 %                 Synthesis Tools (FDITOOLS).
 %                 A. Varga.
 
-%  Copyright 2015-2019 A. Varga
+%  Copyright 2015-2021 A. Varga
 %
 clc
 format compact
@@ -22,7 +22,7 @@ echo on
 
 pause % Press any key to continue ...    
 
-% The current release of FDITOOLS is version 1.0.5, dated July 7, 2019.
+% The current release of FDITOOLS is version 1.0.6, dated May 1, 2021.
 % The available funtions in FDITOOLS are:
 %
 % Setup of synthesis models.

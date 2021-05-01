@@ -1,6 +1,6 @@
 % FDITOOLS - Fault detection and isolation filter synthesis tools.
-% Version 1.0           30-November-2018
-% Copyright 2016-2018 A. Varga
+% Version 1.0.6           May 1, 2021
+% Copyright 2016-2021 A. Varga
 %
 % Demonstration.
 %   FDIToolsdemo - Demonstration of FDITOOLS.
