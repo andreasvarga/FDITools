@@ -5,7 +5,7 @@
 
 `FDITOOLS` is a collection of MATLAB functions for the analysis and solution 
 of fault detection problems. The functions of this collection relies on 
-the Control System Toolbox and the [Descriptor System Tools]((https://github.com/andreasvarga/DescriptorSystemTools)) (`DSTOOLS`). 
+the Control System Toolbox and the [Descriptor System Tools](https://github.com/andreasvarga/DescriptorSystemTools) (`DSTOOLS`). 
 
 The implemented functions are based on the computational procedures described in Chapters 5, 6 and 7 of the book:
 
