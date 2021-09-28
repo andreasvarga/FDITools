@@ -313,6 +313,13 @@ if level == 0
         smarg = -0.05; % use a certain stability margin for poles
       end
    end
+   if isempty(sdeg) 
+      if discr 
+        sdeg = 0.9;   % use a certain stability margin for poles
+      else
+        sdeg = -0.05; % use a certain stability margin for poles
+      end
+   end
 
    % frequencies for strong fault detectability checks
    if isfield(options,'FDFreq')
@@ -330,7 +337,7 @@ end
 % compute SYSN*SYS2, where SYSN is a left nullspace of SYS1 
 %    
 if md > 0
-   [redsys,~] = glnull(sys,struct('tol',tol,'m2',mf));
+   [redsys,~] = glnull(sys,struct('tol',tol,'m2',mf,'sdeg',sdeg));
    sys = redsys(:,end-mf+1:end);
 end
 
@@ -354,10 +361,11 @@ if isempty(FDFreq)
 else
    % determine strong structure matrix
    % enforce that strong specifications are a subset of weak specifications
-   S = fditspec(sysc,tol,FDTol); 
+   S = fditspec(sysc,tol,FDTol); S = [S; max(S,[],1)];
    S2 = fdisspec(sysc,FDGainTol,FDFreq); 
    for i = 1:nf
-       S = intersect(S,S2(:,:,i),'rows');
+       %S = intersect(S,S2(:,:,i),'rows');
+       S = intersect(S,[S2(:,:,i);max(S2(:,:,i),[],1)],'rows');
    end
 end  
 % add cummulated specification 

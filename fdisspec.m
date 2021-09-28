@@ -94,7 +94,7 @@ function [smat,gains] = fdisspec(R,FDGainTol,freq,blkopt)
 %  Copyright 2016-2018 A. Varga
 %  Author:    A. Varga, 02-12-2016.
 %  Revisions: A. Varga, 26-08-2017, 10-05-2018, 06-07-2018, 19-10-2018,
-%                       15-12-2018, 12-06-2019.
+%                       15-12-2018, 12-06-2019, 23.09.2021.
 %
 %  Method: For the definitions of the structure matrix and H-minus index,
 %  see [1].  
@@ -208,8 +208,13 @@ if isa(R,'lti')
          smat = false(1,0);
          gains = zeros(1,0);
       else
-         smat = false(p,0);
-         gains = zeros(p,0);
+         if lfreq 
+            smat = false(p,0,lfreq);
+            gains = zeros(p,0,lfreq);
+         else
+            smat = false(p,0);
+            gains = zeros(p,0);
+         end
       end
       return
    end

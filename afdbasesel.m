@@ -1,6 +1,6 @@
 function [seli,selord] = afdbasesel(S,rwgain,degs,rdim,nout,simple,tol)
-% EFDBASESEL Selection of admissible basis vectors for solving the AFDP
-% [SELI,SELORD] = EFDBASESEL(S,RWGAIN,DEGS,RDIM,NOUT,SIMPLE,TOL) selects 
+% AFDBASESEL Selection of admissible basis vectors for solving the AFDP
+% [SELI,SELORD] = AFDBASESEL(S,RWGAIN,DEGS,RDIM,NOUT,SIMPLE,TOL) selects 
 % several NOUT-tuples of admissible basis vectors, using the binary 
 % structure matrix S and the frequency gain matrix RWGAIN,
 % such that the approximate fault detection problem (AFDP) is 

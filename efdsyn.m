@@ -639,18 +639,18 @@ if rdim < nvec && ~isempty(indf)
       Htemp = h;
    end
 else
-   hbase = eye(rdim);
+   hbase = eye(rdim)
    if simple
-      baseind = 1:rdim; 
+      baseind = 1:rdim
    else
-      baseind = 1;
+      baseind = 1
    end
-   h = eye(rdim);
+   h = eye(rdim)
    if ~emptyHD
-      QR = Htemp*QR;
+      QR = Htemp*QR
    else
       % use full minimum basis 
-      Htemp = h;
+      Htemp = h
    end
 end
 
