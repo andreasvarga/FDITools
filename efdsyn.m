@@ -402,7 +402,7 @@ end
 
 nvec = size(QR,1);          % number of basis vectors
 % check solvability conditions
-if nvec == 0,
+if nvec == 0
    error('Empty nullspace basis: the EFDP is not solvable')
 end
 nq = order(QR);             % order of the minimal basis
@@ -506,7 +506,7 @@ if rdim < nvec && ~isempty(indf)
        %
        % update the synthesis using the selections of candidate vector(s),
        % starting with the least (potentially) achievable order
-       for i = 1:size(basesel,1);
+       for i = 1:size(basesel,1)
            baseind = basesel(i,:); % indices of current basis selection
            if rdim == nout
                hbase = eye(rdim);
@@ -639,18 +639,18 @@ if rdim < nvec && ~isempty(indf)
       Htemp = h;
    end
 else
-   hbase = eye(rdim)
+   hbase = eye(rdim);
    if simple
-      baseind = 1:rdim
+      baseind = 1:rdim;
    else
-      baseind = 1
+      baseind = 1;
    end
-   h = eye(rdim)
+   h = eye(rdim);
    if ~emptyHD
-      QR = Htemp*QR
+      QR = Htemp*QR;
    else
       % use full minimum basis 
-      Htemp = h
+      Htemp = h;
    end
 end
 
