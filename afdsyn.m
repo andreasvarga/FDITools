@@ -194,8 +194,8 @@ function [Q,R,info] = afdsyn(sysf,options)
 %
 %  Method: The Procedure AFD from [1] is implemented, which is based 
 %  on the synthesis method proposed in [2] and Remark 5.10 of [1]. 
-%  For the regularization approach based on the modified co-outer-co-inner 
-%  factorization discussed in [3] (see also Remark 5.8 of [1]). 
+%  The regularization approach based on the modified co-outer-co-inner 
+%  factorization is discussed in [3] (see also Remark 5.8 of [1]). 
 %
 %  References:
 %  [1] A. Varga
@@ -791,7 +791,7 @@ function [sysredupd,info] = afdredsyn(sysred,options)
 %                      vectors (Default: [])
 %  OPTIONS.gamma     - upper bound on ||Rw||_inf  (Default: 1).
 %  OPTIONS.epsreg    - regularization parameter   (Default: 0.1).
-%  OPTIONS.sdegzer   - prescribed stability degree for zros shifting  
+%  OPTIONS.sdegzer   - prescribed stability degree for zeros shifting  
 %                      (Default:  -0.05 for a continuous-time system and
 %                                  0.95  for a discrete-time system) 
 %  OPTIONS.nonstd    - option to handle nonstandard optimization problems
