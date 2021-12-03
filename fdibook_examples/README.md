@@ -11,9 +11,6 @@ It comprises all codes listed in the book, several alternative codes which are n
 but mentioned in the book or represent new alternative codes based on recent implementations of the 
 synthesis methods, and new codes which address other examples in the book for which, originally, no code was provided.   
 
-The current release of the `FDIBOOK_EXAMPLES` is version V1.0.1, dated December 3, 2021.
-
-
 ## Requirements
 
 The codes have been developed under MATLAB 2015b and have been tested with MATLAB 2016a through 2021b. To execute the scripts, the Control System Toolbox, the Robust Control Toolbox, the Descriptor System Tools collection - [`DSTOOLS`](https://github.com/andreasvarga/DescriptorSystemTools) (Version V1.0.1 or later),
