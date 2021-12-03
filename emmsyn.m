@@ -503,7 +503,7 @@ opts_glcf = struct('tol',tol,'tolmin',tolmin, 'mininf',true,...
 opts_glsol = struct('tol',1.e-7,'mindeg',minimal);
 
 Q = cell(nb,1); R = cell(nb,1); M = cell(nb,1); Htemp = cell(nb,1);
-if all(cellfun('isempty',inpru)) && all(cellfun('isempty',inprd)) && ~minimal
+if all(cellfun('isempty',inpru)) && all(cellfun('isempty',inprd)) && all(cellfun('isempty',inprw)) && ~minimal
    % perform either Procedure EMM or EMMS if SYSR has no 'controls' and
    % 'disturbances' input groups and no least order option is selected 
       
@@ -522,7 +522,7 @@ if all(cellfun('isempty',inpru)) && all(cellfun('isempty',inprd)) && ~minimal
    nvec = size(QR,1);       % number of basis vectors
    % check solvability conditions
    if nvec == 0,
-      error('Empty nullspace basis: the EBMMP is not solvable')
+      error('Empty nullspace basis: the EMMP is not solvable')
    end
    degs = info1.degs;       % degrees of a minimal polynomial basis
    tcond1 = info1.tcond;    % condition number of employed transformations
@@ -679,7 +679,7 @@ if all(cellfun('isempty',inpru)) && all(cellfun('isempty',inprd)) && ~minimal
             end
             nout = nout+1;
             if nout > nvec && ~finish
-               error('Something wrong: try perheps with another test frequency')
+               error('Something wrong: try perhaps with another test frequency')
             end
          end
          
@@ -744,7 +744,7 @@ if all(cellfun('isempty',inpru)) && all(cellfun('isempty',inprd)) && ~minimal
 else
    % apply the two-step procedure to solve the EMMP if the least order
    % synthesis option has been selected or SYSR has either 
-   % 'controls' or 'disturbances' input groups, or both
+   % 'controls' or 'disturbances' or 'noise' input groups
    degs = []; 
    Htemp = cell(nb,1);
    for ib = 1:nb
@@ -843,7 +843,7 @@ for ib = 1:nb
         ioff = ioff+mf;
      end
      if ~isempty(inprw{ib})
-        Rib.InputGroup.noise = ioff+mf+(1:mw);
+        Rib.InputGroup.noise = ioff+(1:mw);
      end
      R{ib} = Rib;
   end

@@ -816,16 +816,17 @@ if emptyru && emptyrd && emptyrw && any(~weakfdi)
                         (tol == 0 && beta > nvec*mf*eps(norm(Rftest1)))
                         finish = true;
                      end
-                     if finish    
-                       % adjust condition number of employed transformations
-                        tcond1 = max([tcond1; info2.fnorm;info2.tcond]);
-                        if tcond1 > tcond
-                           disp(['AMMSYN: Possible loss of numerical stability',...
+                  end
+                  % here was possibly an error: fixed by moving outside
+                  if finish    
+                     % adjust condition number of employed transformations
+                     tcond1 = max([tcond1; info2.fnorm;info2.tcond]);
+                     if tcond1 > tcond
+                        disp(['AMMSYN: Possible loss of numerical stability',...
                               ' due to ill-conditioned transformations'])
-                        end
-                        QR = QRfwtest;
-                        break
                      end
+                     QR = QRfwtest;
+                     break
                   end
                else
                   QR = QRfwtest;
@@ -916,7 +917,7 @@ if emptyru && emptyrd && emptyrw && any(~weakfdi)
              case 1  % scale with dcgain
                 sc = dcgain(Mi);
              case 2  % scale with infinity norm
-             sc = norm(Mi,inf)*sign(dcgain(Mi));
+                sc = norm(Mi,inf)*sign(dcgain(Mi));
           end
           Qt(i,:) = Qti/sc; Mib(i,i) = Mib(i,i)*Mi/sc;
         end
@@ -991,7 +992,7 @@ if any(weakfdi)
          syse = [sysf(:,[inpu inpd inpf inpw]); eye(mu,m)];
          %
          % compute a left nullspace basis Q1 of G1 = [Gu; I] = 0 and
-         % obtain QR = [ Q1 R1 ], where R1 = [ Rf1 Rw1 ] = Q1*[Gf Gw;0 0]
+         % obtain QR = [ Q1 R1 ], where R1 = [ Rd1 Rf1 Rw1 ] = Q1*[Gd Gf Gw;0 0 0]
          % set options for initial nullspace computation 
          opts_glnull = struct('tol',tol,'m2',mr,'simple',simple);
          [QR,info1] = glnull(syse,opts_glnull);
@@ -999,8 +1000,8 @@ if any(weakfdi)
       else
          % compute minimal basis as Q1 = [ I -Gu] and set
          % QR = [ Q1 R1 ], where R1 = [ Rf1 Rw1 ] = [ Gf Gw ]
-         QR = [ eye(p) dss(sysf.a,[-sysf.b(:,inpu) sysf.b(:,[inpf inpw])],...
-               sysf.c,[-sysf.d(:,inpu) sysf.d(:,[inpf inpw])],sysf.e,sysf.Ts)];       
+         QR = [ eye(p) dss(sysf.a,[-sysf.b(:,inpu) sysf.b(:,[inpd inpf inpw])],...
+               sysf.c,[-sysf.d(:,inpu) sysf.d(:,[inpd inpf inpw])],sysf.e,sysf.Ts)];       
          tcond1 = 1;   
       end
       if size(QR,1)
@@ -1070,7 +1071,7 @@ if any(weakfdi)
      
        % 2) Compute the approximate solution of Q2*Ge = Rref .
        opts_glasol = struct('tol',tol,'mindeg',mindeg,...
-                        'H2sol',H2syn,'sdeg',sdeg,'poles',poles);
+                        'reltol',reltol,'H2sol',H2syn,'sdeg',sdeg,'poles',poles);
        [Q2,info1] = glasol(R1,Rref(:,m-mr+1:end),opts_glasol); 
        Qib = gir(Q2*Q1,tol);
        gopt0(ib) = info1.mindist;

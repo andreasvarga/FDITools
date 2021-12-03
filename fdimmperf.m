@@ -437,7 +437,7 @@ if isempty(sysr)
          sysref = ss(zeros(nb,mf));  sysref.Ts = R.Ts; 
          for i = 1:nb
              inpwi = inpf(~S(i,:));
-             sysref(i,inpwi) = R(i,inpwi);
+             sysref(i,inpwi-mu-md) = R(i,inpwi);
          end
          gamma = norm([sysref R(:,inpw)],nrmflag);     
       end
