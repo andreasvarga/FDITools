@@ -16,8 +16,8 @@ The current release of the `FDIBOOK_EXAMPLES` is version V1.0.1, dated December 
 
 ## Requirements
 
-The codes have been developed under MATLAB 2015b and have been tested with MATLAB 2016a through 2021b. To execute the scripts, the Control System Toolbox, the Robust Control Toolbox, the Descriptor System Tools collection - [`DSTOOLS`](https://github.com/andreasvarga/DescriptorSystemTools) (Version V0.71 or later),
-and the Fault Detection and Isolation Tools collection - [`FDITOOLS`](https://github.com/andreasvarga/FDITools) (Version V1.0 or later), must be installed in MATLAB running under 64-bit Windows 7, 8, 8.1 or 10. 
+The codes have been developed under MATLAB 2015b and have been tested with MATLAB 2016a through 2021b. To execute the scripts, the Control System Toolbox, the Robust Control Toolbox, the Descriptor System Tools collection - [`DSTOOLS`](https://github.com/andreasvarga/DescriptorSystemTools) (Version V1.0.1 or later),
+and the Fault Detection and Isolation Tools collection - [`FDITOOLS`](https://github.com/andreasvarga/FDITools) (Version V1.0.7 or later), must be installed in MATLAB running under 64-bit Windows 7, 8, 8.1 or 10. 
 
 ## Related Links
 
