@@ -6,8 +6,7 @@ function [seli,selord] = emdbasesel(S,degs,rdim,nout,simple)
 % (EMDP) is solvable by using model detection filters with RDIM outputs.
 % S is a three-dimensional matrix, such that, for each k, S(:,:,k) has
 % nonzero columns. LFREQ > 1 is employed, when several structure 
-% vectors are provided at different frequency values 
-% (see the output of MDSSPEC).   
+% vectors are provided at different frequency values.   
 % Each row SELI(i,:) contains NOUT indices of basis vectors, whose
 % linear combination is admissible, i.e. , S(SELI(i,:),:,k) has all columns
 % nonzero for all k. 
@@ -19,9 +18,9 @@ function [seli,selord] = emdbasesel(S,degs,rdim,nout,simple)
 % SELORD is empty if DEGS is empty. 
 %
 % 
-%  Copyright 2017-2018 A. Varga
+%  Copyright 2017-2021 A. Varga
 %  Author:     A. Varga, 26-08-2017.
-%  Revisions:  
+%  Revisions:  A. Varga, 18-12-2021.
 %
 %  Method: The selection approach, used in conjunction with the synthesis 
 %  Procedure EMD, is described in [1]. 
@@ -53,7 +52,7 @@ if nvec == 1
    return
 end
 
-% find rdim combinations of nout vectors which solve the EFDP 
+% find rdim combinations of nout vectors which solve the EMDP 
 seli = nchoosek(1:nvec,nout); ni = size(seli,1);
 selord = -ones(ni,1);   % set all orders to -1
 nqmax = sum(degs);

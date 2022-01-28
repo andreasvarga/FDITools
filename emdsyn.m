@@ -301,14 +301,15 @@ if isfield(options,'sdeg')
 else
    sdeg = [];
 end
+if discr
+   sdegNS = 0.95;
+else
+   sdegNS = -0.05;
+end
 if isempty(sdeg)
-   % set desired stability degree
-   if discr
-      sdeg = 0.95;
-   else
-      sdeg = -0.05;
-   end
-end    
+    sdeg = sdegNS;
+end 
+
 
 % stability margin
 if isfield(options,'smarg')
@@ -530,6 +531,7 @@ end
 % set options for LCF-based stabilization to be used for final synthesis
 opts_glcf = struct('tol',tol,'tolmin',tolmin, ...
                    'sdeg',sdeg,'smarg',smarg,'poles',poles,'mininf',true);
+opts_glcf_stab = struct('tol',tol,'tolmin',tolmin, 'sdeg',sdegNS);
 
 Q = cell(N,1); 
 if nargout > 1
@@ -550,10 +552,10 @@ for i = MDSelect
       % form Gi = [ Gui Gdi; I 0 ] for the i-th extended system                  
       syse = [ sys{i}(:,[inpu{i} inpd{i}]); eye(mu(i),mu(i)+md(i))]; 
       % compute a minimal left nullspace basis Q1i of Gi
-      [qtemp,info1] = glnull(syse,opt_glnull);
+      [qtemp,info1] = glnull(gir(syse,tol),opt_glnull);
    else
       % compute minimal basis as Q1i = [ I -Gui]
-      qtemp = [eye(p) -sys{i}(:,'controls')];
+      qtemp = [eye(p) -gir(sys{i}(:,'controls'),tol)];
       info1 = struct('degs',[],'tcond',1);
    end
    nvec = size(qtemp,1);       % number of basis vectors
@@ -587,7 +589,9 @@ for i = MDSelect
          end
       end
    end
-
+%    if strongMD
+%       qtemp = glcf(qtemp,opts_glcf_stab);
+%    end
    for j = 1:N
        % check j-th model detectability
        if i ~= j
@@ -767,6 +771,9 @@ for i = MDSelect
              end
              
              % check model detectability of the current design; 
+             if strongMD
+                qtest = glcf(qtest,opts_glcf_stab);
+             end
              if (rdim == nout && minimal) || rdim < nout
                 notOK = false;
                 for j = 1:N
@@ -866,6 +873,7 @@ for i = MDSelect
           if blkord
              i1 = k:k+blkord-1; 
              Qi = glcf(dss(al(i1,i1),bl(i1,:),cl(ii,i1),dl(ii,:),el(i1,i1),Ts),opts_glcf);
+             % to do: handle case i1 is decreasing
              al(i1,i1) = Qi.a; bl(i1,:) = Qi.b;  cl(ii,i1) = Qi.c;  
              dl(ii,:) = Qi.d; 
              if isempty(Qi.e)
