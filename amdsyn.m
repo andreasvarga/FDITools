@@ -995,7 +995,7 @@ if max(mw) == 0
    for i = MDSelect
      Q{i}.InputGroup = struct('outputs',1:p,'controls',p+(1:mu));
      Q{i}.OutputGroup = struct('residuals',1:rdim);
-     if nargaout > 1
+     if nargout > 1
         for j = 1:N 
             R{i,j}.OutputGroup = struct('residuals',1:rdim);
         end
